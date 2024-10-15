@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.content-css {
+  display: block;
+  white-space: normal; /* جلوگیری از نمایش در یک خط */
+  word-wrap: break-word; /* شکستن کلمات طولانی */
+  overflow-wrap: break-word; /* برای اطمینان بیشتر */
+}

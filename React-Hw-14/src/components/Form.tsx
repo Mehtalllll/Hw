@@ -25,7 +25,7 @@ const Form = () => {
           localStorage.setItem('alarms', JSON.stringify(alarms));
         }
       }, [alarms]);
-    localStorage.setItem("Alarm", JSON.stringify(alarms))
+    // localStorage.setItem("Alarm", JSON.stringify(alarms))
     const [modal, setModal] = React.useState<boolean>(false)
     const [modalndex, setModalindex] = React.useState<number>(-1)
     const [trueFalse, settrueFalse] = React.useState<boolean | undefined>(true)

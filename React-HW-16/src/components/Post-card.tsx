@@ -7,12 +7,18 @@ import { AiOutlineDislike } from 'react-icons/ai';
 import { FaRegEye } from 'react-icons/fa';
 import { stringToColour, StringTotextColor } from '../Utils/StringToColer';
 import { ClassNames } from '../Utils/Classnames';
+import { Link } from 'react-router-dom';
 
 interface IPostCardProps {
   user: IUser;
   Post: Iposts;
+  extentBody?: boolean;
 }
-export const PostCard: React.FC<IPostCardProps> = ({ user, Post }) => {
+export const PostCard: React.FC<IPostCardProps> = ({
+  user,
+  Post,
+  extentBody = false,
+}) => {
   const [like, setlike] = useState<boolean>(false);
   const [dislike, setdislike] = useState<boolean>(false);
   const OnclicklikeHandler = () => {
@@ -41,25 +47,31 @@ export const PostCard: React.FC<IPostCardProps> = ({ user, Post }) => {
       <p className="truncate text-lg capitalize font-semibold text-slate-800 pt-3 pb-1">
         {Post.title}
       </p>
-      <p className="text-justify line-clamp-1 text-sm font-medium text-slate-600">
-        {Post.body.slice(0, 100)}
+      <p
+        className={ClassNames(
+          'text-justify text-sm font-medium text-slate-600',
+          extentBody ? '' : 'line-clamp-1',
+        )}
+      >
+        {extentBody ? Post.body : Post.body.slice(0, 100)}
       </p>
       <div className="flex gap-x-2 pt-3">
         {Post.tags.map((el, i) => {
           const ColorHash = stringToColour(el);
           return (
-            <p
-              key={i}
-              style={{
-                backgroundColor: ColorHash,
-                color: StringTotextColor(ColorHash),
-              }}
-              className={ClassNames(
-                'rounded-md p-1 text-xs w-fit border border-slate-300 font-semibold',
-              )}
-            >
-              #{el}
-            </p>
+            <Link key={i} to={`/posts?tag=${el}`}>
+              <p
+                style={{
+                  backgroundColor: ColorHash,
+                  color: StringTotextColor(ColorHash),
+                }}
+                className={ClassNames(
+                  'rounded-md p-1 text-xs w-fit border border-slate-300 font-semibold',
+                )}
+              >
+                #{el}
+              </p>
+            </Link>
           );
         })}
       </div>

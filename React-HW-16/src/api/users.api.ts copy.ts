@@ -21,3 +21,11 @@ export const fetchUsersListByids: fetchUsersListByidsType = async ids => {
 
   return data;
 };
+
+type fetchSingleUsersByidsType = (_: number) => Promise<IUser>;
+export const fetchSingleUsersByids: fetchSingleUsersByidsType = async id => {
+  const Client = GenerateClient();
+  const response = Client.get<IUser>(Urls.Users.ById(id));
+
+  return (await response).data;
+};
